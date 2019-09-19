@@ -1,5 +1,8 @@
 <?php 
 /**
+ * v1 James Chou 2019-09-19
+ * find_like  模糊比對內容
+ * order_by 二維陣列排序
  * v0 James Chou 2019-09-12
  * 陣列處理 二維陣列補充包 
  */
@@ -22,6 +25,9 @@ class Arr
         }
         return FALSE;
     }
+
+    
+
     /**
      * 把記憶體當資料庫使用～ where
      * $where參數請帶陣列
@@ -44,6 +50,58 @@ class Arr
             }
         }
         return $res;
+    }
+    /**
+     * 把記憶體當資料庫使用～ like
+     *  $arr 來源陣列
+     *  $col 要篩選的欄位（以單為陣列表示）
+     *  $value 要找的值
+     */
+    function find_like($arr,$col,$value){
+        
+        if($value == ''){
+            return $arr;
+        }
+        $arr = array_values($arr);
+        $res = array();
+        $arr_temp = array();
+        foreach($arr as $k=>$v){
+            $sv = '';
+            foreach($v as $k2=>$v2){
+                if(in_array($k2,$col)){ // 
+                    $sv = $sv.$v2;
+                }
+            }
+            $arr_temp[] = $sv;
+        }
+        foreach($arr_temp as $k3=>$v3){
+            $reg = "/\\".$value."/m";
+            if(preg_match_all($reg,$v3,$m)){//比對文字內容
+                $res[] = $arr[$k3];
+            }
+        }
+        
+        return $res;
+    }
+    /**
+     * 把記憶體當資料庫使用～ order_by
+     * $arr  來源陣列
+     * col 目標排序欄位
+     * type asc , desc
+     * 
+     */
+    function order_by($arr,$col,$type){
+        $res = array();
+        foreach ($arr as $v) {
+            $res[] = $v[$col];
+        }
+        if($type == 'asc'){
+            array_multisort($res, SORT_ASC, $arr);    
+        }else{
+            array_multisort($res, SORT_DESC, $arr);
+        }
+        return $arr;
+        
     }
     /**
      * 把記憶體當資料庫使用～ group_by
