@@ -1,5 +1,6 @@
 <?php 
 /**
+ * v1.1 find_like 比對正則式修正 ＠ James Chou 2019-09-26
  * v1 James Chou 2019-09-19
  * find_like  模糊比對內容
  * order_by 二維陣列排序
@@ -75,8 +76,8 @@ class Arr
             $arr_temp[] = $sv;
         }
         foreach($arr_temp as $k3=>$v3){
-            $reg = "/\\".$value."/m";
-            if(preg_match_all($reg,$v3,$m)){//比對文字內容
+            $reg = "/".$value."/i";
+            if(preg_match($reg,(string)$v3,$matches)){//比對文字內容
                 $res[] = $arr[$k3];
             }
         }
@@ -127,6 +128,19 @@ class Arr
             }
         }
         return $res;
+    }
+
+    function sum($arr,$col,$where=''){
+        $res = 0;
+        // 如果需要where 功能先過濾需要的 start
+        if($where != ""){
+            $arr = $this->where($arr, $where);
+        }
+        // 如果需要where 功能先過濾需要的 end
+        
+        $a = array_column($arr,$col);
+        return array_sum($a);
+
     }
     
 }
