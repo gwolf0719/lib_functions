@@ -6,7 +6,6 @@ class Curl{
     function sample($url,$method='GET',$data=''){
         $user_agent = 'Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2';
         $ch = curl_init();
-        $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
