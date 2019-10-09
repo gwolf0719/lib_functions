@@ -22,8 +22,7 @@ class Datatables
      *           order : [6,'desc'] , // 排序方式
      *           columnDefs:[ // 不使用排序功能的欄位
      *               {
-     *           　　　　targets : [7],
-　　　*　                orderable : false
+     *           　　　　targets : [7],orderable : false
      *               }]
      *       }
      *   );
