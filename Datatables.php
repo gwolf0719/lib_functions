@@ -10,24 +10,23 @@ class Datatables
     /**
      * 主要呼叫這個 full_data 即可
      * 前端需要載入 cdn 
-     * 
-     * <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+     * <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
      * <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
      * 
      * 前端載入語法如下：
      * $('#datalist').DataTable(
-            {
-                processing: true,  // 顯示載入中
-                serverSide:true, // 使用 server api
-                ajax:"./api/xxx/xxx?xxx", // api 路徑
-                order : [6,'desc'] , // 排序方式
-                columnDefs:[ // 不使用排序功能的欄位
-                    {
-                　　　　targets : [7],
-　　　　                orderable : false
-                    }]
-            }
-        );
+     * {
+     *           processing: true,  // 顯示載入中
+     *           serverSide:true, // 使用 server api
+     *           ajax:"./api/xxx/xxx?xxx", // api 路徑
+     *           order : [6,'desc'] , // 排序方式
+     *           columnDefs:[ // 不使用排序功能的欄位
+     *               {
+     *           　　　　targets : [7],
+　　　*　                orderable : false
+     *               }]
+     *       }
+     *   );
      * 
      * * @param datalist Array 完整的資料列表
      * * @param search_data_arr Array 允許被搜尋的欄位
