@@ -1,5 +1,6 @@
 <?php 
 /**
+ * v1.2 新增 distinct 取得不重複資料
  * v1.1 find_like 比對正則式修正 ＠ James Chou 2019-09-26
  * v1 James Chou 2019-09-19
  * find_like  模糊比對內容
@@ -9,7 +10,19 @@
  */
 class Arr
 {
-    
+    /**
+     * 取得不重複資料
+     */
+    function distinct($arr,$distinct_key){
+        $new = array();
+        foreach ($arr as $key => $value) {
+            # code...
+            if(!$this->in_array($new,$distinct_key,$value[$distinct_key])){
+                $new[] = $value; 
+            }
+        }
+        return $new;
+    }
     /**
      * 確認某個 key 的 value 在二維陣列中
      * arr 原始二維陣列
