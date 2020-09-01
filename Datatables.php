@@ -3,6 +3,7 @@ class Datatables
 {
     /**
      * Datatables Server Side 解決方案
+     * v1.1  James Chou 2020-09-01
      * v1 James 2019 10 09
      * 
      */
@@ -32,21 +33,25 @@ class Datatables
      * * @param sort_arr  Array  允許排序的欄位
      */
     function full_data($datalist, $search_data_arr, $sort_arr){
+        $search_value = isset($_GET['search']['value']) ? $search_value:0;
+        $col_num = isset($_GET['order'][0]['col_num']) ? $col_num:0;
+        $order_type = isset($_GET['order'][0]['dir']) ? $order_type:0;
+        $length = isset($_GET['length']) ? $length: 10;
+        $start = isset($_GET['start']) ? $start:0;
+        $draw = isset($_GET['draw']) ? $start:1;
+
         // 資料位篩選前總數
         $json_arr['recordsTotal'] = count($datalist);
         // 資料位搜尋
-        $search_data = $this->find_like($datalist, $search_data_arr, $_GET['search']['value']);
+        $search_data = $this->find_like($datalist, $search_data_arr, $search_value);
         // 資料位搜尋總數
         $json_arr['recordsFiltered'] = count($search_data);
         // 排序
-        $col_num = $_GET['order'][0]['column'];
-        
-        $order_type = $_GET['order'][0]['dir'];
         $search_data = $this->order_by($search_data, $sort_arr[$col_num], $order_type);
-        $page_data_list = $this->datalist_by_start($search_data, $_GET['length'], $_GET['start']);
+        $page_data_list = $this->datalist_by_start($search_data,$length , $start);
 
         $json_arr['data'] = $page_data_list;
-        $json_arr['draw'] = (int) $_GET['draw'];
+        $json_arr['draw'] = (int)$draw;
         return $json_arr;
     }
 
