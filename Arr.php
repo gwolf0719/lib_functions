@@ -1,5 +1,6 @@
 <?php 
 /**
+ * v1.3 新增 select_col 可以取得二維陣列的特定子欄位如果沒有就填 ""
  * v1.2 新增 distinct 取得不重複資料
  * v1.1 find_like 比對正則式修正 ＠ James Chou 2019-09-26
  * v1 James Chou 2019-09-19
@@ -10,6 +11,22 @@
  */
 class Arr
 {
+    function select_col($arr,$cols){
+        $new = array();
+        foreach($arr as $key => $value){
+            $new_sub = array();
+            foreach($cols as $kc=>$vc){
+                $new_sub[$vc] = '';
+            }
+            foreach($value as $k=>$v){
+                if(in_array($k,$cols)){
+                    $new_sub[$k] = $v;
+                }
+            }
+            $new[] = $new_sub;
+        }
+        return $new;
+    }
     /**
      * 取得不重複資料
      */
